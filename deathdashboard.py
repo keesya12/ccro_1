@@ -72,16 +72,17 @@ class Ui_Dashboard(object):
                 row = cur.execute("SELECT * FROM burial_permit_data")
                 data = cur.fetchall()
 
-                filename = "Book1.csv"
-                labels=()
-    def writer(header, data, filename):
-            with open (filename, "w", newline = "") as csvfile:
-                info = csv.writer(csvfile)
-                info.writerow(header)
-                for row in data:
-                    info.writerow(row)
-                        
+                labels=[]
+                for c in range(self.tableWidget.columnCount()):
+                    it = self.tableWidget.horizontalHeaderItem(c)
+                    labels.append(str(c+1) if it is None else it.text())
+                    
+                    worksheet.write('A1',labels[0])
+                    # worksheet.write('B1',labels[0])
+                    
+
         
+        workbook.close()
 
     def searchResult(self):
             connection = mc.connect(
